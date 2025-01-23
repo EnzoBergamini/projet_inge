@@ -1,6 +1,5 @@
 from unidecode import unidecode
 import pandas as pd
-from enum import Enum
 
 
 class GenderPredictor:
@@ -27,13 +26,30 @@ class GenderPredictor:
         and 2 if the name is predicted to be female.
     """
 
-    def __init__(self, data_frame):
-        self._data_frame = pd.read_csv(data_frame)
+    def __init__(self, data_frame_path: str) -> None:
+        self._data_frame = pd.read_csv(data_frame_path)
 
-    def normalize_name(self, name):
+    def normalize_name(self, name: str) -> str:
+        """
+        Normalizes the given name by converting it to lowercase and removing accents.
+
+        Args:
+            name (str): The name to normalize.
+
+        Returns:
+            str: The normalized name.
+        """
         return unidecode(name).lower()
 
-    def is_name_in_data(self, name):
+    def is_name_in_data(self, name: str) -> bool:
+        """
+        Checks if the normalized name exists in the dataset
+        Args:
+            name (str): The name to check.
+
+        Returns:
+            bool: Returns True if the name exists in the dataset
+        """
         return self._data_frame[
             self._data_frame["Name"] == self.normalize_name(name)
         ].empty
