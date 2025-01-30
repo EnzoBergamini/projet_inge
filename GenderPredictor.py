@@ -39,6 +39,10 @@ class GenderPredictor:
         Returns:
             str: The normalized name.
         """
+
+        if name is None:
+            name = ""
+
         return unidecode(name).lower()
 
     def is_name_in_data(self, name: str) -> bool:
@@ -50,9 +54,12 @@ class GenderPredictor:
         Returns:
             bool: Returns True if the name exists in the dataset
         """
-        return self._data_frame[
+
+        result = self._data_frame[
             self._data_frame["Name"] == self.normalize_name(name)
         ].empty
+
+        return result 
 
     def predict(self, name) -> int:
         """
