@@ -1,4 +1,4 @@
-from unidecode import unidecode
+from unidecode import unidecode  # type: ignore
 import pandas as pd
 
 
@@ -54,13 +54,13 @@ class GenderPredictor:
             self._data_frame["Name"] == self.normalize_name(name)
         ].empty
 
-    def predict(self, name):
+    def predict(self, name) -> int:
         """
                 Predicts the gender of a given name.
         Args:
             name (str): The name to predict the gender for.
         Returns:
-            int: Returns 0 if the name is found in the data,
+            int: Returns 0 if the name is not found in the data,
                  1 if the name is predicted to be male,
                  2 if the name is predicted to be female.
         """
